@@ -15,7 +15,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
 			Parent root = FXMLLoader.load(this.getClass().getResource("/view/TelaInicial.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);

@@ -1,9 +1,12 @@
 package view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import application.Main;
+import connection.ComunicadorTCP;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +42,21 @@ public class TelaInicialController implements Initializable{
 	
 
     @FXML
-    void click_btnConectar(ActionEvent event) {
-
+    void click_btnConectar(ActionEvent event) throws IOException {    
+    	
+    	abrirTelaDoJogo();
+    	/*
+    	Scanner teclado = new Scanner(System.in);
+        ComunicadorTCP cliente = new ComunicadorTCP("127.0.0.1", 7777);
+        
+        while(true) {
+            System.out.print("Mensagem: ");
+            String mensagem = teclado.nextLine();
+            cliente.enviarMensagem(mensagem);
+            
+            String resposta = cliente.receberMensagem();
+            System.out.println("Resposta: " + resposta);*/
+        //}
     }
     
     
