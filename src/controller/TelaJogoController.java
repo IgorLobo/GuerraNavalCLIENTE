@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,20 +11,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 
 public class TelaJogoController implements Initializable {
+//*********************ELEMENTOS DA TELA**********************************
+	  @FXML
+	    private TextArea txa_placar;
 
-	@FXML
-	public GridPane tabuleiro;
+	    @FXML
+	    private Label lb_meusPontos;
 
-	@FXML
-	public Label lb_pontos;
+	    @FXML
+	    private Button btn_desistir;
 
+	    @FXML
+	    private GridPane grid_tabuleiroJogo;
+
+	    @FXML
+	    void clickBtn_desistir(ActionEvent event) {
+
+	    }
+//********************METODOS********************************************
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -37,8 +45,8 @@ public class TelaJogoController implements Initializable {
 		// Tabuleiro tab = new Tabuleiro(linha, coluna);
 		// tab.iniciarEmbarcacao();
 		// tab.mostrar();
-		tabuleiro.setVgap(10);
-		tabuleiro.setHgap(10);
+		grid_tabuleiroJogo.setVgap(10);
+		grid_tabuleiroJogo.setHgap(10);
 
 		Button z[][] = new Button[linha][coluna];
 
@@ -57,7 +65,7 @@ public class TelaJogoController implements Initializable {
 
 		for (int i = 0; i < linha; i++) {
 			for (int j = 0; j < coluna; j++) {
-				tabuleiro.add(z[i][j], j, i);
+				grid_tabuleiroJogo.add(z[i][j], j, i);
 			}
 
 		}
@@ -66,22 +74,16 @@ public class TelaJogoController implements Initializable {
 	
 	private void s() {
 		try {
-		Arma portaAviao = new Arma("Porta Avião", 5, "");
-		Arma submarino = new Arma("Porta Avião", 5, "");
-		Arma cruzador = new Arma("Porta Avião", 5, "");
-		Arma destroier = new Arma("Porta Avião", 5, "");
-		
-		
+			Arma portaAviao = new Arma("Porta Avião", 5, "");
+			Arma submarino = new Arma("Porta Avião", 5, "");
+			Arma cruzador = new Arma("Porta Avião", 5, "");
+			Arma destroier = new Arma("Porta Avião", 5, "");
+
 			Jogo f = new Jogo(5);
-			
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
-		
-		
+		}	
 	}
 
 	private void testar(String s) {

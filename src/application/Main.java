@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -18,8 +19,9 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(this.getClass().getResource("/view/TelaInicial.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.show();
 			primaryStage.setResizable(false);
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/batalhaNaval.png")));
+			primaryStage.show();
 			this.primaryStage = primaryStage;
 		} catch(Exception e) {
 			e.printStackTrace();
