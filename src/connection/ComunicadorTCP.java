@@ -26,4 +26,8 @@ public class ComunicadorTCP {
     public String receberMensagem() throws IOException {
         return entrada.readUTF();
     }
+    
+    public String tradutor(String[] s) {
+    	return null;
+    }
 }

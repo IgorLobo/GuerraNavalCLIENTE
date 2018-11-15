@@ -1,15 +1,13 @@
-package classes;
+package model;
 
 public class Arma {
 	private String nome = "vazio";
 	private int pontos = -1;
-	private String URLimagem = "";
+	private String URLimagem = "/images/" + "Livre" + ".png";
 	private boolean situacao = true;
 	
-	public Arma(String nome, int pontos , String URLimagem) {
-		this.nome = nome;
-		this.pontos = pontos;
-		this.URLimagem = URLimagem;
+	public Arma() {
+
 	}
 	
 	public void setSituacao(boolean situacao, String URLimagem) {
@@ -23,4 +21,9 @@ public class Arma {
 	public String getURLimagem() {return URLimagem;}
 	
 	public boolean getSituacao() {return situacao;}
+	
+	public void destruir() {
+		this.situacao = false;
+		this.URLimagem = "/images/destruido" + this.nome + ".png";
+	}
 }

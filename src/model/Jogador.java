@@ -1,4 +1,4 @@
-package classes;
+package model;
 
 public class Jogador {
 	private int ID = -1;

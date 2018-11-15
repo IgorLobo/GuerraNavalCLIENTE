@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class TelaInicialController implements Initializable{
+	//-----------------------------------ATRIBUTOS-------------------------------------------
+	
 //------------------COMPONENTES DA TELA FXML-----------------------
 	 @FXML
 	    private TextField txf_ipServidor;
