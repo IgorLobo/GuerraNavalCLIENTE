@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="268.0" prefWidth="366.0" style="-fx-background-image: url('images/telaInicialBackground.jpg');" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TelaInicialController">
    <children>
-      <VBox alignment="TOP_RIGHT" layoutX="83.0" layoutY="66.0" spacing="5.0">
+      <VBox alignment="TOP_RIGHT" layoutX="82.0" layoutY="46.0" prefWidth="203.0" spacing="5.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="203.0" text="Conectar ao servidor" textFill="#f2eaea">
                <font>
@@ -35,6 +35,16 @@
                      </font>
                   </Label>
                   <TextField fx:id="txf_portaServidor" prefHeight="25.0" prefWidth="162.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <Label text="Nick Name" textFill="#f2eaea">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txf_nickName" prefHeight="25.0" prefWidth="162.0" />
                </children>
             </HBox>
             <Button fx:id="btn_conectar" mnemonicParsing="false" onAction="#click_btnConectar" prefHeight="25.0" prefWidth="85.0" text="Conectar" />

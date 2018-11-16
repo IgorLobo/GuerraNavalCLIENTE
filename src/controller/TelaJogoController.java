@@ -1,5 +1,15 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,9 +30,25 @@ import model.Jogo;
 
 public class TelaJogoController implements Initializable {
 //*************************ATRIBUTOS**************************************
-	public static int tamanho = 8;
+	Thread escutar = null;
+	
+	
+	
+	public static int tamanho = -1;
 	private Button botoesDoTabuleiro[][];
-	private Jogo jogo = null;
+	public static Jogo jogo = null;
+	
+	private int t= 0;
+	private String mensagemServidor = "";
+
+	public static int porta = 5555;
+	public static Socket socket= null;
+	public static ObjectOutputStream objectOutputStream = null;
+	public static ObjectInputStream objectInputStream = null;
+	public static InputStream inputStream=null;
+	public static OutputStream outputStream=null;
+	
+	public volatile static boolean statusServidor = false;
 	
 	
 //*********************ELEMENTOS DA TELA**********************************
@@ -46,6 +72,7 @@ public class TelaJogoController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		tabuleiro();
+		escutar();
 	}
 
 	public void tabuleiro() {
@@ -62,7 +89,12 @@ public class TelaJogoController implements Initializable {
 					botoesDoTabuleiro[i][j].setOnAction(new EventHandler<ActionEvent>() {
 						public void handle(ActionEvent event) {
 							Button botaoOnClick = (Button) event.getSource();
-							jogo.disparo(botaoOnClick.getId());
+							try {
+								t = jogo.disparo(botaoOnClick.getId());
+								System.out.println(t);
+							} catch (IOException e) {
+								JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
+							}
 							int[] coordenadas = traduzirCoordenadas(botaoOnClick.getId());
 							botoesDoTabuleiro[coordenadas[0]][coordenadas[1]].setGraphic(new ImageView(new Image(jogo.getArmaURL(coordenadas[0],coordenadas[1]),60, 60, false, false)));
 						}
@@ -95,6 +127,35 @@ public class TelaJogoController implements Initializable {
 		int espaçamento = (10 * (tamanho - 1));
 		int tamanhoDosBotoes = 60 * tamanho;
 		return (espaçamento + tamanhoDosBotoes);
+	}
+	
+	
+	public void escutar() {
+		try {
+			escutar = new Thread() {
+				@Override
+				public void run() {
+					try {
+						
+						while (true) {
+							objectInputStream = new ObjectInputStream(socket.getInputStream());
+							
+							mensagemServidor = objectInputStream.readUTF();
+							if (mensagemServidor.equals("true")) {
+								System.out.println("jogue");
+							}				
+		
+						}						
+						
+					} catch (Exception e) {
+					}
+				}
+			};
+			escutar.start();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 
 }
