@@ -67,7 +67,7 @@ public class TelaInicialController implements Initializable {
 					try {
 					nickName = txf_nickName.getText();
 					TelaJogoController.porta = Integer.parseInt(txf_portaServidor.getText());
-					TelaJogoController.socket = new Socket("127.0.0.1", TelaJogoController.porta);
+					TelaJogoController.socket = new Socket(txf_ipServidor.getText(), TelaJogoController.porta);
 					TelaJogoController.statusServidor = true;
 					
 					TelaJogoController.objectInputStream = new ObjectInputStream(TelaJogoController.socket.getInputStream());

@@ -62,10 +62,9 @@ public class Jogo {
 			tabuleiro[linha][coluna].setArma(traducao[1], Integer.parseInt(traducao[2]));
 			return Integer.parseInt(traducao[2]);
 		}else if(traducao[0].equals("false")) {
-			tabuleiro[linha][coluna].setArma(traducao[1], Integer.parseInt(traducao[2]));
+			tabuleiro[linha][coluna].setLivre(traducao[1], Integer.parseInt(traducao[2]));
 			return 0;
 		}
-		
 		return 0;
 	}
 	

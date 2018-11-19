@@ -36,4 +36,11 @@ public class Arma {
 		this.pontos = pontos;
 		this.situacao = false;
 	}
+	
+	public void setLivre(String nome, int pontos) {
+		this.nome = nome;
+		this.URLimagem = "/images/" + this.nome + ".png";
+		this.pontos = pontos;
+		this.situacao = false;
+	}
 }

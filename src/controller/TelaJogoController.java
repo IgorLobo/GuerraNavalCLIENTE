@@ -40,7 +40,7 @@ public class TelaJogoController implements Initializable {
 	public static InputStream inputStream = null;
 	public static OutputStream outputStream = null;
 	public volatile static boolean statusServidor = false;
-	
+
 //*********************ELEMENTOS DA TELA**********************************
 
 	@FXML
@@ -48,7 +48,7 @@ public class TelaJogoController implements Initializable {
 
 	@FXML
 	private Button btn_desistir;
-	
+
 	@FXML
 	private Button visorVez;
 
@@ -59,16 +59,17 @@ public class TelaJogoController implements Initializable {
 	void clickBtn_desistir(ActionEvent event) {
 		
 	}
-	
+
 //********************METODOS********************************************
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		criarTabuleiro();
-		vezDeJogar();
-		visorVez.setStyle("-fx-background-color: #bf230f ;-fx-border-color: #000000; ");
-		 visorVez.setText("Aguarde sua vez...");
-		 grid_tabuleiroJogo.setDisable(true);
-		 
+		//esperarServidor();
+		//vezDeJogar();
+		/*visorVez.setStyle("-fx-background-color: #bf230f ;-fx-border-color: #000000; ");
+		visorVez.setText("Aguarde sua vez...");
+		grid_tabuleiroJogo.setDisable(true);*/
+
 	}
 
 	public void criarTabuleiro() {
@@ -80,25 +81,20 @@ public class TelaJogoController implements Initializable {
 			for (int i = 0; i < tamanho; i++) {
 				for (int j = 0; j < tamanho; j++) {
 					botoesDoTabuleiro[i][j] = new Button();
-					botoesDoTabuleiro[i][j].setMinSize(60, 60);
+					botoesDoTabuleiro[i][j].setMinSize(80, 80);
 					botoesDoTabuleiro[i][j].setId(i + "," + j);
 					botoesDoTabuleiro[i][j].setOnAction(new EventHandler<ActionEvent>() {
 						public void handle(ActionEvent event) {
 							Button botaoOnClick = (Button) event.getSource();
-							try {
-								grid_tabuleiroJogo.setDisable(true);
-								//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+							try {								
 								if (esperarServidor()) {
 									pontos += jogo.disparo(botaoOnClick.getId());
 									lb_meusPontos.setText(Integer.toString(pontos));
-
 								}
-								
-											
-								
+
 							} catch (Exception e) {
 								JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
-							} 
+							}
 							int[] coordenadas = traduzirCoordenadas(botaoOnClick.getId());
 							botoesDoTabuleiro[coordenadas[0]][coordenadas[1]].setGraphic(new ImageView(
 									new Image(jogo.getArmaURL(coordenadas[0], coordenadas[1]), 60, 60, false, false)));
@@ -129,43 +125,43 @@ public class TelaJogoController implements Initializable {
 
 	private int calcularTamanhoDaGrid() {
 		int espaçamento = (10 * (tamanho - 1));
-		int tamanhoDosBotoes = 60 * tamanho;
+		int tamanhoDosBotoes = 80 * tamanho;
 		return (espaçamento + tamanhoDosBotoes);
 	}
 
 	public boolean esperarServidor() {
 		try {
+			socket.setSoTimeout(100);
 			objectInputStream = new ObjectInputStream(socket.getInputStream());
-
 			mensagemServidor = objectInputStream.readUTF();
-			if (mensagemServidor.equals("true")) {
+			if (mensagemServidor.equals("true")) {			
 				return true;
+			} else {
+				return false;
 			}
-			return false;
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			return false;
 		}
 	}
-	
+
 	private void vezDeJogar() {
 
-		 new Thread() {
+		new Thread() {
 			@Override
 			public void run() {
 				while (true) {
-		
-			if(mensagemServidor.equals("false")) {
-			 visorVez.setStyle("-fx-background-color: #bf230f ;-fx-border-color: #000000; ");
-			 visorVez.setText("Aguarde sua vez...");
-			 grid_tabuleiroJogo.setDisable(true);
-		}else if(mensagemServidor.equals("true")){
-			visorVez.setStyle("-fx-background-color: #0eb719;-fx-border-color: #000000; ");
-			 visorVez.setText("Sua vez de jogar!");
-			 grid_tabuleiroJogo.setDisable(false);
-		}
-		
+
+					if (mensagemServidor.equals("false")) {
+						visorVez.setStyle("-fx-background-color: #bf230f ;-fx-border-color: #000000; ");
+						visorVez.setText("Aguarde sua vez...");
+						grid_tabuleiroJogo.setDisable(true);
+					} else if (mensagemServidor.equals("true")) {
+						visorVez.setStyle("-fx-background-color: #0eb719;-fx-border-color: #000000; ");
+						visorVez.setText("Sua vez de jogar!");
+						grid_tabuleiroJogo.setDisable(false);
+					}
+
 				}
 			}
 		}.start();
