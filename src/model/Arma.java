@@ -30,8 +30,10 @@ public class Arma {
 		return situacao;
 	}
 
-	public void destruir() {
-		this.situacao = false;
+	public void setArma(String nome, int pontos) {
+		this.nome = nome;
 		this.URLimagem = "/images/destruido" + this.nome + ".png";
+		this.pontos = pontos;
+		this.situacao = false;
 	}
 }

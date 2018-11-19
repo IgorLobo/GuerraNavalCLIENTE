@@ -37,17 +37,24 @@
                   <TextField fx:id="txf_portaServidor" prefHeight="25.0" prefWidth="162.0" />
                </children>
             </HBox>
+            <HBox prefHeight="17.0" prefWidth="203.0">
+               <children>
+                  <Label text="Apelido" textFill="#f2eaea" />
+                  <TextField fx:id="txf_nickName" prefHeight="25.0" prefWidth="162.0" />
+               </children>
+            </HBox>
+            <Button fx:id="ok" mnemonicParsing="false" onAction="#ok" text="Button" />
             <Button fx:id="btn_conectar" mnemonicParsing="false" onAction="#click_btnConectar" prefHeight="25.0" prefWidth="85.0" text="Conectar" />
          </children>
       </VBox>
-      <HBox layoutX="14.0" layoutY="234.0" prefHeight="20.0" prefWidth="235.0">
+      <HBox layoutX="14.0" layoutY="234.0" prefHeight="20.0" prefWidth="183.0">
          <children>
             <Label text="Status da conexão:" textFill="#f2eaea">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lb_statusDaConexao" prefHeight="20.0" prefWidth="111.0" textFill="#f2eaea">
+            <Label fx:id="lb_statusDaConexao" prefHeight="20.0" prefWidth="56.0" textFill="#f2eaea">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

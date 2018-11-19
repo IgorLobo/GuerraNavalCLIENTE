@@ -38,9 +38,8 @@ public class Jogo {
 		}
 	}
 
-	public int disparo(String cordenadas) throws IOException {
-		int pontosDaJogada = 0;
-		String[] cordenadasXY = cordenadas.split(",");
+	public int disparo(String cordenadas) throws IOException {		
+		String[]cordenadasXY = traduzir(cordenadas);		
 		int linha = Integer.parseInt(cordenadasXY[0]);
 		int coluna = Integer.parseInt(cordenadasXY[1]);
 		if (linha > tamanho || coluna > tamanho)
@@ -56,10 +55,21 @@ public class Jogo {
 		TelaJogoController.objectOutputStream.writeUTF(cordenadas);
 		TelaJogoController.objectOutputStream.flush();
 		
-		pontosDaJogada = Integer.parseInt(TelaJogoController.objectInputStream.readUTF());
+		String mensagemDoServidor = TelaJogoController.objectInputStream.readUTF();
+		String traducao[] = mensagemDoServidor.split(",");
 		
-		return pontosDaJogada;
+		if (traducao[0].equals("true")) {
+			tabuleiro[linha][coluna].setArma(traducao[1], Integer.parseInt(traducao[2]));
+			return Integer.parseInt(traducao[2]);
+		}				
+		return 0;
 	}
+	
+	public String[] traduzir(String jogada) {
+		String[] s = jogada.split(",");
+		return s;
+	}
+	
 	
 	public String getArmaURL(int linha, int coluna) {
 		return tabuleiro[linha][coluna].getURLimagem();

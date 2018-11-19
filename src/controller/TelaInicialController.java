@@ -48,9 +48,8 @@ public class TelaInicialController implements Initializable {
 	@FXML
 	private TextField txf_nickName;
 
-	 @FXML
-	 private Button ok;
-	 
+    @FXML
+    private Button ok;
 	 
 //-----------------------METODOS------------------------------------
 	@Override
@@ -88,6 +87,7 @@ public class TelaInicialController implements Initializable {
 				}
 			};
 			comunicacao.start();
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
